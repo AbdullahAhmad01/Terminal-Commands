@@ -1,0 +1,78 @@
+#!/bin/bash
+
+# flmod : create a file of given file mode.
+
+usage () {
+  echo "usage : $(basename $0): flmod [-o|--overwrite] [-v|--verbous] [-e|--edit] <mode>|-s|--script <file>" >&2
+  exit 1
+}
+
+[[ $#<2 ]] && usage
+
+
+mod=
+filename=
+getfile=0
+script=0
+overwrite=0
+verbous=0
+edit=0
+
+while [[ -n $1 ]]; do
+  if (( ! $getfile )); then
+    case $1 in
+      -o|--overwrite)     overwrite=1
+                          ;;
+      -v|--verbous)       verbous=1
+                          ;;
+      -e|--edit)          edit=1
+                          ;;
+      -s|--script)        script=1
+                          shift
+                          filename=$1
+                          ;;
+      ???|????)           mod=$1
+                          shift
+                          filename=$1
+                          ;;
+      *)                  usage
+                          ;;
+    esac
+  fi
+  shift
+done
+
+[[ -z "$filename" ]] && usage
+[[ -z "$mod" && (( ! $script )) ]] && usage
+
+[[ -e $filename &&  $overwrite==0 ]] && echo "File already exists. Terminated" >&2 && exit 1
+
+if [[ -e $filename && $overwrite==1 ]]; then
+  rm $filename
+fi
+
+
+if (( script )); then
+  echo -e "#!/bin/bash\n\n# $filename : describe your program in one line.\n\necho \"Script file is ready\"" > $filename
+  if [[ -e $filename ]]; then
+    (($verbous)) && echo "File created"
+    chmod 755 $filename
+    (($verbous)) && echo "File mod changed to 755"
+    $PWD/$filename >&1
+  else
+    echo "File not created." >&2
+    exit 1
+  fi
+else
+  touch $filename
+  if [[ -e $filename ]]; then
+    (($verbous)) && echo "'$filename' created."
+    chmod $mod $filename
+    (($verbous)) && echo "$filename mode changed to $mod."
+  else
+    echo "File not created." >&2;
+    exit 1;
+  fi
+fi
+
+(( edit )) &&  nano $filename
