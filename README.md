@@ -2,7 +2,7 @@
 Some Useful Linux Terminal programs
 
 ## 1  flmod
-  The program is used for two main purposes:
+  The program is used for two main purposes.
     1 Creating files of given mode
     2 Creating script files
 #### Examples
