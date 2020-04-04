@@ -7,19 +7,16 @@ Some Useful Linux Terminal programs
     2. Creating script files
 
 #### Examples
-**1:**
 ```bash
 flmod 644 details.txt
 ```
 equivilant to `touch details.txt ; chmod 644 details.txt`
 
-**2:**
 ```bash
 flmod -o 644 details.txt
 ```
 same as first example but delete file if exists
 
-**3:**
 ```bash
 flmod -s myscript
 ```
@@ -32,7 +29,6 @@ Create 'myscript' file in current working directory, write following content in 
 echo "Script file is ready"
 ```
 
-**4:** 
 ```bash
 flmod -s -e myscript
 ```
