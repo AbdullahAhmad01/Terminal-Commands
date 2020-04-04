@@ -10,20 +10,12 @@ Some Useful Linux Terminal programs
 flmod 644 details.txt
 ```
 equivilant to `touch details.txt ; chmod 644 details.txt`
-
-
-
-
-
+<br/><br/><br/>
 ```bash
 flmod -o 644 details.txt
 ```
 same as first example but delete file if exists
-
-
-
-
-
+<br/><br/><br/>
 ```bash
 flmod -s myscript
 ```
@@ -35,11 +27,7 @@ Create 'myscript' file in current working directory, write following content in 
 
 echo "Script file is ready"
 ```
-
-
-
-
-
+<br/><br/><br/>
 ```bash
 flmod -s -e myscript
 ```
