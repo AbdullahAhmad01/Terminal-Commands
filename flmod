@@ -12,7 +12,6 @@ usage () {
 
 mod=
 filename=
-getfile=0
 script=0
 overwrite=0
 verbous=0
