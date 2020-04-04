@@ -32,5 +32,8 @@ Create 'myscript' file in current working directory, write following content in 
 echo "Script file is ready"
 ```
 
-**4:** flmod -s -e myscript
+**4:** 
+```bash
+flmod -s -e myscript
+```
 same as 3 but also open script using `nano myscript`
