@@ -18,26 +18,24 @@ verbous=0
 edit=0
 
 while [[ -n $1 ]]; do
-  if (( ! $getfile )); then
-    case $1 in
-      -o|--overwrite)     overwrite=1
-                          ;;
-      -v|--verbous)       verbous=1
-                          ;;
-      -e|--edit)          edit=1
-                          ;;
-      -s|--script)        script=1
-                          shift
-                          filename=$1
-                          ;;
-      ???|????)           mod=$1
-                          shift
-                          filename=$1
-                          ;;
-      *)                  usage
-                          ;;
-    esac
-  fi
+  case $1 in
+    -o|--overwrite)     overwrite=1
+                        ;;
+    -v|--verbous)       verbous=1
+                        ;;
+    -e|--edit)          edit=1
+                        ;;
+    -s|--script)        script=1
+                        shift
+                        filename=$1
+                        ;;
+    ???|????)           mod=$1
+                        shift
+                        filename=$1
+                        ;;
+    *)                  usage
+                        ;;
+  esac
   shift
 done
 
