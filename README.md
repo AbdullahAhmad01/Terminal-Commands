@@ -32,3 +32,17 @@ echo "Script file is ready"
 flmod -s -e myscript
 ```
 same as 3rd but also open script using `nano myscript`
+
+## 2  Grabber:
+  Search files for copy/move
+
+#### Syntax:
+```bash
+grabber cp|mv FROM TO SEARCH_STRING
+```
+
+#### Examples:
+Following code copies all jpg files from /dev/sdb to Pictures of user.
+```bash
+grabber cp /dev/sdb2 /home/user/Pictures .jpg
+```
