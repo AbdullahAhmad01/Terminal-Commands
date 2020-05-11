@@ -1,0 +1,74 @@
+#!/bin/bash
+
+# grabber : grab files and perform operations cp|mv
+
+usage(){
+	echo "usage : grabber cp|mv FROM TO SEARCH_STRING"
+}
+
+# Validation
+if [[ $# -ne 4 ]]
+then
+	usage>&2
+	exit 1
+fi
+
+COMMAND=$1
+FROM=$2
+TO=$3
+SEARCH_STRING=$4
+
+if [[ $COMMAND -ne "cp" && $COMMAND -ne "mv" ]]
+then
+	usage>&2;
+	exit 1
+elif [[ -e ".grabber_filelist" ]]
+then
+	echo -n "file '.grabber_filelist' already exists. Remove flie (y) ? "
+	read rem
+	if [[ $rem -eq "y" || $rem -eq "Y" ]]
+	then
+		rm .grabber_filelist
+		if [[ -e ".grabber_filelist" ]]
+		then
+			echo "Unable to remove file">&2
+			exit 1
+		else
+			echo "File removed."
+		fi
+	else
+		echo "Terminated.">&2
+		exit 1
+	fi
+fi
+
+# File List
+touch .grabber_filelist
+echo -n "" > .grabber_filelist
+
+( find $FROM -type f | grep $SEARCH_STRING >> .grabber_filelist ) || ( echo "error while building filelist.">&2; exit 1 )
+
+TOTAL_FILES=$( cat .grabber_filelist | wc -l )
+echo -e "\nTotal Files : $TOTAL_FILES"
+echo "Starting process in 3s"
+sleep 3
+
+# Process
+pfilenum=1
+while read file
+do
+	if [[ -z $file ]]; then
+		continue
+	fi
+	echo "Process $((100*$pfilenum/$TOTAL_FILES))% ($pfilenum/$TOTAL_FILES) : $COMMAND '$file'"
+	$COMMAND "$file" $TO
+	pfilenum=$(($pfilenum+1))
+done < .grabber_filelist
+
+# Remove filelist
+echo "Removing filelist."
+rm .grabber_filelist
+
+# Exit
+echo -e "\nDone."
+exit 0
