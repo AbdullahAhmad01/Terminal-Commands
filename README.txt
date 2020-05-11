@@ -23,3 +23,15 @@
       
            IV- flmod -s -e myscript
               [ same as III but also open script using 'nano myscript' command ]
+
+2 : grabber
+      Grab files for copy/move
+      
+      Syntax
+      ======
+            grabber cp|mv FROM TO SEARCH_STRING
+      
+      Example
+      =======
+      following command will copy all '.jpg' files from /dev/sdb1 to Pictures of user directory
+            grabber cp /dev/sdb1 /home/user/Pictures .jpg
