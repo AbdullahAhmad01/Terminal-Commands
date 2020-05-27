@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# logline : print text with date and time and extends to file
+
+usage() {
+	echo "usage : logline FILE TEXT";
+}
+
+if [[ $# -lt 2 ]]
+then
+	usage >&2
+	exit 1
+fi
+
+FILE=$1
+shift
+text=$@
+
+echo -e "[$(date)]\t$text" >> $FILE
+
+#if [[ -e $FILE ]]
+#then
+#	echo Exists
+#else
+#	echo File $FILE not exists.
+#fi
